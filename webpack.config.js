@@ -48,6 +48,29 @@ const config = {
           'sass-loader',
         ],
       },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              template: (
+                { template },
+                opts,
+                { imports, componentName, props, jsx, exports }
+              ) => template.ast`
+              ${imports} 
+              
+              const ${componentName} = (${props}) => {
+                props = {...props,  viewBox:'0 0 512 512'};
+                return ${jsx};
+          };
+          export default ${componentName}`,
+            },
+          },
+          // 'url-loader',
+        ],
+      },
     ],
   },
   plugins: [
@@ -74,7 +97,7 @@ module.exports = (env, argument) => {
 
     config.plugins.push(
       new NotifierPlugin({
-        title: 'QuFit WEB',
+        title: 'WeatherPlz',
         alwaysNotify: true,
       })
     );
