@@ -1,10 +1,8 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import MainPage from 'pages/MainPage';
+import MainPage from '../pages/MainPage';
 
-interface IRoutesProps {}
-
-const Routes: React.FunctionComponent<IRoutesProps> = props => {
+const Routes: React.FunctionComponent = () => {
   return (
     <Switch>
       <Route exact path="/" component={MainPage} />

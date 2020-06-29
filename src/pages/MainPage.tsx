@@ -1,16 +1,16 @@
 import * as React from 'react';
 
-interface IMainPageProps {}
-
-const MainPage: React.FunctionComponent<IMainPageProps> = props => {
+const MainPage: React.FunctionComponent = () => {
   return (
-    <ul>
-      <li>asdf</li>
-      <li>asdf</li>
-      <li>asdf</li>
-      <li>asdf</li>
-      <li>asdf</li>
-    </ul>
+    <div>
+      <ul>
+        <li>asdf</li>
+        <li>asdf</li>
+        <li>asdf</li>
+        <li>asdf</li>
+        <li>asdf</li>
+      </ul>
+    </div>
   );
 };
 
