@@ -1,6 +1,7 @@
 const commonThemes = {
   maxWidth: '935px',
   borderRadius: '4px',
+  bottomShadow: ' 0 3px 5px rgba(57, 63, 72, 0.3)',
 };
 
 export const lightTheme = {
@@ -15,6 +16,7 @@ export const lightTheme = {
   redColor: '#ED4956',
   lightRedColor: '#ff6b81',
   toggleBorder: '#FFF',
+  headerGradient: 'linear-gradient(#1878F2,#1e90ff)',
   gradient: 'linear-gradient(#39598A, #79D7ED)',
 };
 export const darkTheme = {
@@ -24,10 +26,11 @@ export const darkTheme = {
   blackColor: '#FAFAFA',
   darkGrayColor: '#999',
   lightGrayColor: '#c7c7c7',
-  blueColor: '#1878F2',
-  lightBlueColor: '#1e90ff',
+  blueColor: '#151965',
+  lightBlueColor: '#32407b',
   redColor: '#ED4956',
   lightRedColor: '#ff6b81',
   toggleBorder: '#6B8096',
+  headerGradient: 'linear-gradient(#151965,#32407b)',
   gradient: 'linear-gradient(#091236, #1E215D)',
 };

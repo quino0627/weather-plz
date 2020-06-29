@@ -16,7 +16,6 @@ const ToggleButton = styled.button<buttonProps>`
   display: flex;
   font-size: 5px;
   justify-content: space-between;
-  margin: 0 auto;
   overflow: hidden;
   padding: 5px 15px;
   width: 120px;

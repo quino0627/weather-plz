@@ -62,7 +62,7 @@ const config = {
               ${imports} 
               
               const ${componentName} = (${props}) => {
-                props = {...props,  viewBox:'0 0 512 512'};
+                props = {...props, width:'512', height:'512', viewBox:'0 0 512 512'};
                 return ${jsx};
           };
           export default ${componentName}`,
