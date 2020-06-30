@@ -1,29 +1,33 @@
 import dotenv from 'dotenv';
-import { createAction, ActionType, createReducer } from 'typesafe-actions';
+import {
+  createAction,
+  ActionType,
+  createReducer,
+  createAsyncAction,
+} from 'typesafe-actions';
 import { Observable, of, race } from 'rxjs';
 import { mergeMap, map, takeUntil, catchError } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 import { Action } from 'redux';
 import { ofType } from 'redux-observable';
+import { RootState } from 'modules';
+import { createRequestActionTypes } from './createRequestEpic';
 
 /** Action Types */
-const FETCH_WEATHER_GEO = 'weathers/FETCH_WEATHER_GEO';
-const FETCH_WEATHER_GEO_FULFILLED = 'weathers/FETCH_WEATHER_GEO_FULFILLED';
-const FETCH_WEATHER_GEO_REJECTED = 'weathers/FETCH_WEATHER_GEO_REJECTED';
-const FETCH_WEATHER_GEO_CANCELLED = 'weathers/FETCH_WEATHER_GEO_CANCELLED';
+const [
+  FETCH_WEATHER_GEO,
+  FETCH_WEATHER_GEO_FULFILLED,
+  FETCH_WEATHER_GEO_REJECTED,
+  FETCH_WEATHER_GEO_CANCELLED,
+] = createRequestActionTypes('weathers/FETCH_WEATHER_GEO');
 
-export const fetchWeatherGeo = createAction(FETCH_WEATHER_GEO)<
-  Partial<Coordinates>
->();
-export const fetchWeatherGeoFulfilled = createAction(
-  FETCH_WEATHER_GEO_FULFILLED
-)<unknown>();
-export const fetchWeatherGeoCanceled = createAction(
+/** Action types */
+const fetchWeatherGeoAsync = createAsyncAction(
+  FETCH_WEATHER_GEO,
+  FETCH_WEATHER_GEO_FULFILLED,
+  FETCH_WEATHER_GEO_REJECTED,
   FETCH_WEATHER_GEO_CANCELLED
-)();
-export const fetchWeatherRejected = createAction(FETCH_WEATHER_GEO_REJECTED)<
-  any
->();
+)<Partial<Coordinates>, unknown, unknown, string>();
 
 /** Type */
 export type Weathers = {
@@ -42,10 +46,7 @@ const initialState: WeathersState = {
 
 /** Typescript Type of Actions */
 const actions = {
-  fetchWeatherGeo,
-  fetchWeatherGeoCanceled,
-  fetchWeatherGeoFulfilled,
-  fetchWeatherRejected,
+  fetchWeatherGeoAsync,
 };
 type WeathersAction = ActionType<typeof actions>;
 
@@ -59,15 +60,9 @@ export const fetchWeatherGeoEpic = (
     mergeMap(_unusedAction =>
       race(
         ajax.getJSON(api).pipe(
-          map(response => fetchWeatherGeoFulfilled(response)),
-          takeUntil(action$.pipe(ofType(FETCH_WEATHER_GEO_CANCELLED))),
-          catchError(error =>
-            of({
-              type: FETCH_WEATHER_GEO_REJECTED,
-              payload: error.xhr.response,
-              error: true,
-            })
-          )
+          map(response => fetchWeatherGeoAsync.success(response)),
+          takeUntil(action$.pipe(ofType(fetchWeatherGeoAsync.cancel))),
+          catchError(error => of(fetchWeatherGeoAsync.failure(error)))
         )
       )
     )
@@ -75,7 +70,7 @@ export const fetchWeatherGeoEpic = (
 };
 
 const weathers = createReducer<WeathersState, WeathersAction>(initialState, {
-  [FETCH_WEATHER_GEO]: (state, { payload: string }) => ({
+  [FETCH_WEATHER_GEO]: state => ({
     ...state,
     loading: true,
   }),

@@ -1,23 +1,17 @@
-import { pipe, race } from 'rxjs';
-import { ofType } from 'redux-observable';
-import { mergeMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Action } from 'redux';
+import { createAsyncAction } from 'typesafe-actions';
+import { AsyncAction } from 'rxjs/internal/scheduler/AsyncAction';
 
-export const createRequestActionTypes = type => {
-  const FULFILLED = `${type}_FULFILLED`;
+export const createRequestActionTypes = (type: string): string[] => {
+  const FULFILLED = `${type}_SUCCESS`;
   const REJECTED = `${type}_REJECTED`;
-  const CANCELLED = `${type}_CANCELLED`;
+  const CANCELLED = `${type}_REJECTED`;
   return [type, FULFILLED, REJECTED, CANCELLED];
 };
 
-export default function createRequestEpic(type, api, action$) {
-  const FULFILLED = `${type}_FULFILLED`;
-  const REJECTED = `${type}_REJECTED`;
-  const CANCELLED = `${type}_CANCELLED`;
-
-  return action$.pipe(
-    ofType(type),
-    mergeMap(async action => {
-      const request = {};
-    })
-  );
-}
+// export default function createRequestEpic(typeaction$: Observable<Action>) {
+//   const FULFILLED = `${type}_SUCCESS`;
+//   const REJECTED = `${type}_REJECTED`;
+//   const CANCELLED = `${type}_REJECTED`;
+// }

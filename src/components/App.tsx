@@ -11,7 +11,7 @@ import Footer from './Footer';
 const Wrapper = styled.div`
   background-color: ${props => props.theme.bgColor};
   color: ${props => props.theme.fontColor};
-  transition: all 0.25 linear;
+  transition: all 0.3s linear;
 `;
 
 const Content = styled.div`

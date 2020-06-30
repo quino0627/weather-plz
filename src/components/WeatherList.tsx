@@ -3,8 +3,17 @@ import styled from 'styled-components';
 
 interface IWeatherListProps {}
 
-const List = styled.ul``;
-const Item = styled.li``;
+const List = styled.ul`
+  padding-bottom: 100px;
+`;
+const Item = styled.li`
+  padding: 20px;
+  background-color: ${({ theme }) => theme.lightBlueColor};
+  box-shadow: ${({ theme }) => theme.bottomShadow};
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+`;
 const WeatherList: React.FunctionComponent<IWeatherListProps> = props => {
   return (
     <List>

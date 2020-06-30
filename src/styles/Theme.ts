@@ -6,18 +6,18 @@ const commonThemes = {
 
 export const lightTheme = {
   ...commonThemes,
-  bgColor: '#E2E2E2',
+  bgColor: '##ecf0f1',
   fontColor: '#363537',
   blackColor: '#363537',
   darkGrayColor: '#999',
   lightGrayColor: '#c7c7c7',
-  blueColor: '#1878F2',
-  lightBlueColor: '#1e90ff',
+  blueColor: '#0fbcf9',
+  lightBlueColor: '#4bcffa',
   redColor: '#ED4956',
   lightRedColor: '#ff6b81',
   toggleBorder: '#FFF',
   bottomShadow: ' 0 3px 5px rgba(57, 63, 72, 0.3)',
-  headerGradient: 'linear-gradient(#1878F2,#1e90ff)',
+  headerGradient: 'linear-gradient(#0fbcf9,#4bcffa)',
   gradient: 'linear-gradient(#39598A, #79D7ED)',
 };
 export const darkTheme = {
