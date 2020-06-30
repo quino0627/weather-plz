@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:local": "NODE_ENV=local webpack-dev-server --config=webpack.config.js --mode=development --open --hot",
-    "build:production": "rm -rf build && NODE_ENV=develop webpack --config=webpack.config.js --mode=production",
+    "start:local": "webpack-dev-server --config=webpack.config.js --mode=development --open --hot",
+    "build:production": "rm -rf build && NODE_ENV=prod webpack --config=webpack.config.js --mode=production",
     "build:develop": "rm -rf build && NODE_ENV=develop webpack --config=webpack.config.js --mode=development"
   },
   "repository": {
@@ -56,6 +56,7 @@
     "webpack-notifier": "^1.8.0"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "immer": "^7.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
