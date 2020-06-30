@@ -7,9 +7,9 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules';
-import { fetchWeatherGeo } from '../modules/weathers';
 import WeatherList from '../components/WeatherList';
 import useGeolocation from '../hooks/useGeolocation';
+import { fetchWeatherGeoAsync } from '../modules/weathers';
 
 // HOC of geolocation
 
@@ -27,7 +27,7 @@ const MainPage: React.FunctionComponent = () => {
   // }, [data]);
   const onFetchWeather = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(fetchWeatherGeo());
+    dispatch(fetchWeatherGeoAsync.request('Asdf'));
   };
   return (
     <div>

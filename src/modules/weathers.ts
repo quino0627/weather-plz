@@ -1,17 +1,12 @@
-import dotenv from 'dotenv';
-import {
-  createAction,
-  ActionType,
-  createReducer,
-  createAsyncAction,
-} from 'typesafe-actions';
+import { ActionType, createReducer, createAsyncAction } from 'typesafe-actions';
 import { Observable, of, race } from 'rxjs';
 import { mergeMap, map, takeUntil, catchError } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 import { Action } from 'redux';
 import { ofType } from 'redux-observable';
-import { RootState } from 'modules';
-import { createRequestActionTypes } from './createRequestEpic';
+import createRequestEpic, {
+  createRequestActionTypes,
+} from './createRequestEpic';
 
 /** Action Types */
 const [
@@ -22,7 +17,7 @@ const [
 ] = createRequestActionTypes('weathers/FETCH_WEATHER_GEO');
 
 /** Action types */
-const fetchWeatherGeoAsync = createAsyncAction(
+export const fetchWeatherGeoAsync = createAsyncAction(
   FETCH_WEATHER_GEO,
   FETCH_WEATHER_GEO_FULFILLED,
   FETCH_WEATHER_GEO_REJECTED,
@@ -54,20 +49,7 @@ const api = `https://api.openweathermap.org/data/2.5/weather?q=london&appid=${pr
 
 export const fetchWeatherGeoEpic = (
   action$: Observable<Action>
-): Observable<Action> => {
-  return action$.pipe(
-    ofType(FETCH_WEATHER_GEO),
-    mergeMap(_unusedAction =>
-      race(
-        ajax.getJSON(api).pipe(
-          map(response => fetchWeatherGeoAsync.success(response)),
-          takeUntil(action$.pipe(ofType(fetchWeatherGeoAsync.cancel))),
-          catchError(error => of(fetchWeatherGeoAsync.failure(error)))
-        )
-      )
-    )
-  );
-};
+): Observable<Action> => createRequestEpic(action$, fetchWeatherGeoAsync, api);
 
 const weathers = createReducer<WeathersState, WeathersAction>(initialState, {
   [FETCH_WEATHER_GEO]: state => ({
