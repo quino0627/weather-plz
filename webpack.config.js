@@ -96,16 +96,14 @@ const config = {
 module.exports = (env, argument) => {
   const currentPath = path.join(__dirname);
   const basePath = `${currentPath}/.env`;
-  const envPath = `${basePath}.${argument.mode}`;
-  const finalPath = fs.existsSync(envPath) ? envPath : basePath;
-  const fileEnv = dotenv.config({ path: finalPath }).parsed;
+  const fileEnv = dotenv.config({ path: basePath }).parsed;
   const envKeys = Object.keys(fileEnv).reduce((prev, next) => {
     // eslint-disable-next-line no-param-reassign
     prev[`process.env.${next}`] = JSON.stringify(fileEnv[next]);
     return prev;
   }, {});
 
-  if (argument.mode === 'development') {
+  if (argument.mode === 'dev') {
     config.devtool = 'cheap-module-eval-source-map';
     config.plugins.push(
       new NotifierPlugin({
@@ -114,13 +112,6 @@ module.exports = (env, argument) => {
       })
     );
   }
-
-  // config.plugins.push(
-  //   new webpack.DefinePlugin({
-  //     _mode: JSON.stringify(argument.mode),
-  //     __ENVIRONMENT__: JSON.stringify(process.env.NODE_ENV),
-  //   })
-  // );
   config.plugins.push(new webpack.DefinePlugin(envKeys));
 
   return config;
