@@ -25,7 +25,6 @@ export const fetchWeatherGeoAsync = createAsyncAction(
 /** Type */
 export type Weathers = {
   data: any;
-  loading: boolean;
   error: any;
 };
 type WeathersState = Weathers;
@@ -33,7 +32,6 @@ type WeathersState = Weathers;
 /** InitialState */
 const initialState: WeathersState = {
   data: null,
-  loading: false,
   error: null,
 };
 
@@ -51,18 +49,15 @@ export const fetchWeatherGeoEpic = (
 const weathers = createReducer<WeathersState, WeathersAction>(initialState, {
   [FETCH_WEATHER_GEO]: state => ({
     ...state,
-    loading: true,
   }),
-  [FETCH_WEATHER_GEO_CANCELLED]: state => ({ ...state, loading: false }),
+  [FETCH_WEATHER_GEO_CANCELLED]: state => ({ ...state }),
   [FETCH_WEATHER_GEO_FULFILLED]: (state, { payload }) => ({
     ...state,
     data: payload,
-    loading: false,
   }),
   [FETCH_WEATHER_GEO_REJECTED]: (state, { payload }) => ({
     ...state,
     error: payload,
-    loading: false,
   }),
 });
 

@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Observable, race, of } from 'rxjs';
+import { Observable, race, of as of$, concat } from 'rxjs';
 import { mergeMap, takeUntil, catchError, map } from 'rxjs/operators';
 import { Action } from 'redux';
 import { ofType } from 'redux-observable';
 import { PayloadActionCreator } from 'typesafe-actions';
+import { startLoading, finishLoading } from './loading';
 
 export const createRequestActionTypes = (type: string): string[] => {
   const FULFILLED = `${type}_SUCCESS`;
@@ -25,12 +26,16 @@ export default (
   action$.pipe(
     ofType(asyncAction.request),
     mergeMap(action =>
-      race(
+      concat(
+        of$(startLoading(action.type)),
+
         api(action).pipe(
           map(response => asyncAction.success(response)),
           takeUntil(action$.pipe(ofType(asyncAction.cancel))),
-          catchError(error => of(asyncAction.failure(error)))
-        )
+          catchError(error => of$(asyncAction.failure(error)))
+        ),
+
+        of$(finishLoading(action.type))
       )
     )
   );
