@@ -1,9 +1,7 @@
 import { ActionType, createReducer, createAsyncAction } from 'typesafe-actions';
-import { Observable, of, race } from 'rxjs';
-import { mergeMap, map, takeUntil, catchError } from 'rxjs/operators';
-import { ajax } from 'rxjs/ajax';
+import { Observable } from 'rxjs';
 import { Action } from 'redux';
-import { ofType } from 'redux-observable';
+import { getGeoWeather } from '../api/weather';
 import createRequestEpic, {
   createRequestActionTypes,
 } from './createRequestEpic';
@@ -45,11 +43,10 @@ const actions = {
 };
 type WeathersAction = ActionType<typeof actions>;
 
-const api = `https://api.openweathermap.org/data/2.5/weather?q=london&appid=${process.env.OPEN_WEATHER_API_KEY}`;
-
 export const fetchWeatherGeoEpic = (
   action$: Observable<Action>
-): Observable<Action> => createRequestEpic(action$, fetchWeatherGeoAsync, api);
+): Observable<Action> =>
+  createRequestEpic(action$, fetchWeatherGeoAsync, getGeoWeather);
 
 const weathers = createReducer<WeathersState, WeathersAction>(initialState, {
   [FETCH_WEATHER_GEO]: state => ({

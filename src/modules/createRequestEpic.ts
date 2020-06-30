@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Observable, race, of } from 'rxjs';
 import { mergeMap, takeUntil, catchError, map } from 'rxjs/operators';
-import { ajax } from 'rxjs/ajax';
 import { Action } from 'redux';
 import { ofType } from 'redux-observable';
 import { PayloadActionCreator } from 'typesafe-actions';
@@ -21,13 +20,13 @@ export default (
     failure: PayloadActionCreator<any, any>;
     cancel: PayloadActionCreator<any, any>;
   },
-  api: string
+  api: (action?: Action<any>) => Observable<Action<any>>
 ): Observable<Action> =>
   action$.pipe(
     ofType(asyncAction.request),
-    mergeMap(_unusedAction =>
+    mergeMap(action =>
       race(
-        ajax.getJSON(api).pipe(
+        api(action).pipe(
           map(response => asyncAction.success(response)),
           takeUntil(action$.pipe(ofType(asyncAction.cancel))),
           catchError(error => of(asyncAction.failure(error)))
