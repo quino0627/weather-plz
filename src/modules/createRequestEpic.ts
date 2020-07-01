@@ -9,7 +9,7 @@ import { startLoading, finishLoading } from './loading';
 export const createRequestActionTypes = (type: string): string[] => {
   const FULFILLED = `${type}_SUCCESS`;
   const REJECTED = `${type}_REJECTED`;
-  const CANCELLED = `${type}_REJECTED`;
+  const CANCELLED = `${type}_CANCELED`;
   return [type, FULFILLED, REJECTED, CANCELLED];
 };
 

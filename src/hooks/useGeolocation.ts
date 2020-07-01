@@ -1,51 +1,33 @@
-import { useState, useEffect, useCallback } from 'react';
+import { SyntheticEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Geolocation, fetchLocationAsync } from '../modules/locations';
+import { Loading } from '../modules/loading';
 
 export default function useGeolocation(): {
-  loading: boolean;
+  latitude: number | null;
+  longitude: number | null;
   error: string | null;
-  accuracy?: number | undefined;
-  altitude?: number | null | undefined;
-  altitudeAccuracy?: number | null | undefined;
-  heading?: number | null | undefined;
-  latitude?: number | undefined;
-  longitude?: number | undefined;
-  speed?: number | undefined;
+  loading: boolean;
+  onFetchGeolocation: (e: SyntheticEvent) => void;
 } {
-  const [position, setPosition] = useState<Partial<Coordinates> | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  const onSuccess: PositionCallback = ({ coords }) => {
-    setPosition({
-      latitude: coords.latitude,
-      longitude: coords.longitude,
-    });
-    setLoading(false);
+  const dispatch = useDispatch();
+  const { latitude, longitude, error, geoLoading } = useSelector(
+    ({ locations, loading }: { locations: Geolocation; loading: Loading }) => ({
+      latitude: locations.latitude,
+      longitude: locations.longitude,
+      error: locations.error,
+      geoLoading: loading['locations/FETCH_LOCATION'],
+    })
+  );
+  const onFetchGeolocation = (e: SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(fetchLocationAsync.request());
   };
-
-  const onError: PositionErrorCallback = err => {
-    setError(err.message);
-    setLoading(false);
-  };
-
-  const options = {
-    enableHighAccuracy: false,
-    timeout: 10000,
-    maximumAge: 0,
-  };
-
-  useEffect(() => {
-    const { geolocation } = navigator;
-    if (!geolocation) {
-      setError('Geolocation is not allowed/supported');
-    }
-    setLoading(true);
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
-  }, []);
-
   return {
-    ...position,
-    loading,
+    latitude,
+    longitude,
     error,
+    loading: geoLoading,
+    onFetchGeolocation,
   };
 }

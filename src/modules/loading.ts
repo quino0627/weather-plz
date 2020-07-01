@@ -4,10 +4,10 @@ import { createAction, ActionType, createReducer } from 'typesafe-actions';
 export const startLoading = createAction('loading/START_LOADING')<string>();
 export const finishLoading = createAction('loading/FINISH_LOADING')<string>();
 
-export type loading = {
+export type Loading = {
   [key: string]: boolean;
 };
-type LoadingState = loading;
+type LoadingState = Loading;
 const initialState: LoadingState = {};
 
 const actions = { startLoading, finishLoading };

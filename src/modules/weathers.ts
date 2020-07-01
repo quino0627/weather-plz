@@ -20,7 +20,7 @@ export const fetchWeatherGeoAsync = createAsyncAction(
   FETCH_WEATHER_GEO_FULFILLED,
   FETCH_WEATHER_GEO_REJECTED,
   FETCH_WEATHER_GEO_CANCELLED
-)<Partial<Coordinates>, unknown, unknown, string>();
+)<unknown, unknown, unknown, string>();
 
 /** Type */
 export type Weathers = {
