@@ -4,9 +4,16 @@ import { combineReducers } from 'redux';
 import styles from './styles';
 import weathers, { fetchWeatherGeoEpic } from './weathers';
 import loading from './loading';
-import locations, { fetchLocationEpic } from './locations';
+import locations, {
+  fetchLocationEpic,
+  fetchWeatherAfterLocationEpic,
+} from './locations';
 
-export const rootEpic = combineEpics(fetchWeatherGeoEpic, fetchLocationEpic);
+export const rootEpic = combineEpics(
+  fetchWeatherGeoEpic,
+  fetchLocationEpic,
+  fetchWeatherAfterLocationEpic
+);
 export const rootReducer = combineReducers({
   styles,
   weathers,

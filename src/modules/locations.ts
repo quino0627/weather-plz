@@ -1,10 +1,13 @@
 /* eslint-disable no-param-reassign */
 import { ActionType, createReducer, createAsyncAction } from 'typesafe-actions';
-import { Observable, of, bindCallback } from 'rxjs';
+import { Observable, of, bindCallback, concat } from 'rxjs';
 import { Action } from 'redux';
-import { ofType } from 'redux-observable';
-import { mergeMap, catchError, map } from 'rxjs/operators';
+import { ofType, StateObservable } from 'redux-observable';
+import { mergeMap, catchError, map, tap, mapTo } from 'rxjs/operators';
+import { RootState } from 'modules';
 import { createRequestActionTypes } from './createRequestEpic';
+import { fetchWeatherGeoAsync } from './weathers';
+import { startLoading, finishLoading } from './loading';
 
 const [
   FETCH_LOCATION,
@@ -54,16 +57,34 @@ export const fetchLocationEpic = (
 ): Observable<Action> =>
   action$.pipe(
     ofType(fetchLocationAsync.request),
-    mergeMap(() =>
-      getCurrentPosition$.pipe(
-        map(position =>
-          fetchLocationAsync.success({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          })
+    mergeMap(action =>
+      concat(
+        of(startLoading(action.type)),
+        getCurrentPosition$.pipe(
+          map(position =>
+            fetchLocationAsync.success({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            })
+          ),
+          catchError(() => of(fetchLocationAsync.failure({ error: 'denied' })))
         ),
-        catchError(() => of(fetchLocationAsync.failure({ error: 'denied' })))
+        of(finishLoading(action.type))
       )
+    )
+  );
+
+export const fetchWeatherAfterLocationEpic = (
+  action$: Observable<Action>,
+  state: StateObservable<any>
+): Observable<Action> =>
+  action$.pipe(
+    ofType(fetchLocationAsync.success),
+    mergeMap(async () =>
+      fetchWeatherGeoAsync.request({
+        lat: state.value.locations.latitude,
+        lon: state.value.locations.longitude,
+      })
     )
   );
 

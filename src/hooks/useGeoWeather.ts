@@ -1,7 +1,7 @@
 import { SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Weathers, fetchWeatherGeoAsync } from '../modules/weathers';
-import { Geolocation } from '../modules/locations';
+import { Geolocation, fetchLocationAsync } from '../modules/locations';
 import { Loading } from '../modules/loading';
 
 export default function useGeoWeather(): {
@@ -11,7 +11,7 @@ export default function useGeoWeather(): {
   onFetchWeather: (e: SyntheticEvent) => void;
 } {
   const dispatch = useDispatch();
-  const { error, data, weatherLoading } = useSelector(
+  const { error, data, latitude, longitude, weatherLoading } = useSelector(
     ({
       weathers,
       locations,
@@ -28,9 +28,13 @@ export default function useGeoWeather(): {
       weatherLoading: loading['weathers/FETCH_WEATHER_GEO'],
     })
   );
-  const onFetchWeather = (e: SyntheticEvent) => {
+  const onFetchWeather = async (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(fetchWeatherGeoAsync.request({ lat: 1, lon: 2 }));
+    if (latitude !== null) {
+      dispatch(fetchWeatherGeoAsync.request({ lat: latitude, lon: longitude }));
+    } else {
+      dispatch(fetchLocationAsync.request());
+    }
   };
   return {
     error,

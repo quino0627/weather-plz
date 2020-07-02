@@ -20,7 +20,7 @@ const loading = createReducer<LoadingState, LoadingAction>(initialState)
   }))
   .handleAction(finishLoading, (state, action) => ({
     ...state,
-    [action.payload]: true,
+    [action.payload]: false,
   }));
 
 export default loading;

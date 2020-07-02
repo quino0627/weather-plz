@@ -11,12 +11,6 @@ const MainPage: React.FunctionComponent = () => {
     <>
       <GeoBox />
       <GeoWeatherBox />
-      {/* <button type="button" onClick={onFetchWeather}>
-        fetch
-      </button>
-      <br />
-      {loading && <div> fetching london weather... </div>}
-      {!loading && !error && <code>{JSON.stringify(data)}</code>} */}
       <WeatherList />
     </>
   );
