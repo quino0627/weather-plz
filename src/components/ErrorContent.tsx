@@ -20,9 +20,7 @@ const ErrorContentWrapper = styled.div`
   }
 `;
 
-interface IErrorContentProps {}
-
-const ErrorContent: React.FunctionComponent<IErrorContentProps> = props => {
+const ErrorContent: React.FunctionComponent = () => {
   return (
     <ErrorContentWrapper>
       <ErrorIcon />

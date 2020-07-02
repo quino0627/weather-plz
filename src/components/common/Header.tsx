@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Toggle from './Toggle';
+import Toggle from '../Toggle';
 
 const HeaderBlock = styled.header`
   display: flex;

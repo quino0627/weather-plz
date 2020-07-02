@@ -1,7 +1,5 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-interface IWeatherListProps {}
 
 const List = styled.ul`
   padding-bottom: 100px;
@@ -14,7 +12,7 @@ const Item = styled.li`
     margin-bottom: 20px;
   }
 `;
-const WeatherList: React.FunctionComponent<IWeatherListProps> = props => {
+const WeatherList: React.FunctionComponent = () => {
   return (
     <List>
       <Item>서울, 최고온도, 최저온도</Item>

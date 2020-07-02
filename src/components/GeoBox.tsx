@@ -10,6 +10,7 @@ const GeoBoxWrapper = styled.div`
 `;
 
 const GetGeoButton = styled.button`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,6 +28,7 @@ const GetGeoButton = styled.button`
   &:hover {
     transform: scale(1.1);
   }
+
   svg {
     height: auto;
     width: 100%;
@@ -37,7 +39,7 @@ const IntroText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: bold;
+  font-weight: 400;
   font-size: 30px;
   color: ${({ theme }) => theme.fontColor};
 `;
@@ -46,7 +48,7 @@ const GeoBox: React.FunctionComponent = (): React.ReactElement => {
   const { onFetchGeolocation } = useGeolocation();
   return (
     <GeoBoxWrapper>
-      <IntroText>날씨</IntroText>
+      <IntroText>Now</IntroText>
       <GetGeoButton onClick={onFetchGeolocation}>
         <Location />
       </GetGeoButton>

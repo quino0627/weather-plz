@@ -4,9 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 import useTheme from '../hooks/useTheme';
 import { lightTheme, darkTheme } from '../styles/Theme';
 import GlobalStyles from '../styles/GlobalStyles';
-import Header from './Header';
+import Header from './common/Header';
 import Routes from './Routes';
-import Footer from './Footer';
+import Footer from './common/Footer';
 
 const Wrapper = styled.div`
   background-color: ${props => props.theme.bgColor};
