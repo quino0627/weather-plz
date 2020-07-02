@@ -7,16 +7,22 @@ const HeaderBlock = styled.header`
   justify-content: space-between;
   align-items: center;
   height: 80px;
-  padding: 6px 20px;
+  padding: 6px 50px;
   margin-bottom: 20px;
   background: ${({ theme }) => theme.headerGradient};
-  box-shadow: ${({ theme }) => theme.bottomShadow};
+  box-shadow: ${({ theme }) => theme.headerShadow};
+`;
+
+const Logo = styled.div`
+  font-weight: 700;
+  font-size: 32px;
+  text-shadow: ${({ theme }) => theme.dropShadow};
 `;
 
 const Header: React.FunctionComponent = () => {
   return (
     <HeaderBlock>
-      <div>WeatherPlz</div>
+      <Logo>Weather-Plz</Logo>
       <Toggle />
     </HeaderBlock>
   );

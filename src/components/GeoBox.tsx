@@ -23,8 +23,8 @@ const GetGeoButton = styled.button`
   cursor: pointer;
   transition: all 0.2s linear;
 
+  filter: drop-shadow(${({ theme }) => theme.dropShadow});
   &:hover {
-    filter: drop-shadow(${({ theme }) => theme.dropShadow});
     transform: scale(1.1);
   }
   svg {

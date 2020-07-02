@@ -9,23 +9,28 @@ interface buttonProps {
 }
 
 const ToggleButton = styled.button<buttonProps>`
-  background: ${({ theme }) => theme.gradient};
-  border: 2px solid ${({ theme }) => theme.toggleBorder};
-  border-radius: 30px;
-  cursor: pointer;
   display: flex;
-  font-size: 5px;
   justify-content: space-between;
   align-items: center;
-  overflow: hidden;
-  padding: 5px 15px;
+
   width: 120px;
   height: 50px;
+  padding: 5px 15px;
+
+  overflow: hidden;
+  font-size: 5px;
+  cursor: pointer;
+  /* background: ${({ theme }) => theme.gradient}; */
+  background: ${({ theme }) => theme.toggleGradient};
+  box-shadow: ${({ theme }) => theme.toggleShadow};
+  border: none;
+  border-radius: 15px;
 
   svg {
     height: auto;
     width: 30px;
     transition: all 0.3s linear;
+    filter: drop-shadow(${({ theme }) => theme.toggleDropShadow});
 
     &:first-child {
       transform: ${({ lightTheme }) =>
