@@ -6,9 +6,9 @@ import queryString from 'query-string';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function getGeoWeather(action: any): Observable<Action<unknown>> {
   const { payload } = action;
-  console.log(queryString.stringify(payload));
+  const latLon = queryString.stringify(payload);
   return ajax.getJSON(
-    `https://api.openweathermap.org/data/2.5/weather?q=london&appid=${process.env.OPEN_WEATHER_API_KEY}`
+    `https://api.openweathermap.org/data/2.5/weather?${latLon}&appid=${process.env.OPEN_WEATHER_API_KEY}&${process.env.OPEN_WEATHER_API_SETTINGS}`
   );
 }
 
