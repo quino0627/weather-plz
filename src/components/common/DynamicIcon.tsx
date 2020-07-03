@@ -18,7 +18,7 @@ import {
   Icon13n,
   Icon50d,
   Icon50n,
-} from '../../icons/weather';
+} from '../../library/icons/weather';
 
 interface IDynamicIconProps {
   type: string;

@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 import React from 'react';
 import styled from 'styled-components';
-import { locationWeatherType } from '../types/locationWeatherType';
+import { locationWeatherType } from '../library/types/locationWeatherType';
 import DynamicIcon from './common/DynamicIcon';
 
 interface WrapperProps {
@@ -43,6 +43,9 @@ const MainInfos = styled.div`
 const SubInfos = styled.div`
   font-size: 14px;
   letter-spacing: 1.5px;
+  &:first-child {
+    padding-bottom: 8px;
+  }
 `;
 
 const TempText = styled.div`

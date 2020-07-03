@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import Location from '../icons/location.svg';
+import Location from '../library/icons/location.svg';
 import useGeolocation from '../hooks/useGeolocation';
 
 const GeoBoxWrapper = styled.div`

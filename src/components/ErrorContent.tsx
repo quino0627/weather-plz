@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ErrorIcon from '../icons/error.svg';
+import ErrorIcon from '../library/icons/error.svg';
 
 const ErrorContentWrapper = styled.div`
   display: flex;

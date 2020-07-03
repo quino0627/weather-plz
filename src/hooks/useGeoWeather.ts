@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Weathers, fetchWeatherGeoAsync } from '../modules/weathers';
 import { Geolocation, fetchLocationAsync } from '../modules/locations';
 import { Loading } from '../modules/loading';
+import { locationWeatherType } from '../library/types/locationWeatherType';
 
 export default function useGeoWeather(): {
-  error: any;
-  data: any;
+  error: string | null;
+  data: locationWeatherType | null;
   loading: boolean;
   onFetchWeather: (e: SyntheticEvent) => void;
 } {
@@ -21,8 +22,8 @@ export default function useGeoWeather(): {
       locations: Geolocation;
       loading: Loading;
     }) => ({
-      data: weathers.data,
-      error: weathers.error,
+      data: weathers.locationWeather,
+      error: weathers.error.locationWeather,
       latitude: locations.latitude,
       longitude: locations.longitude,
       weatherLoading: loading['weathers/FETCH_WEATHER_GEO'],

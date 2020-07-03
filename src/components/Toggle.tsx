@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import useTheme from '../hooks/useTheme';
-import MoonIcon from '../icons/moon.svg';
-import SunIcon from '../icons/sun.svg';
+import MoonIcon from '../library/icons/moon.svg';
+import SunIcon from '../library/icons/sun.svg';
 
 interface buttonProps {
   readonly lightTheme: boolean;

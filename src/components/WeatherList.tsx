@@ -1,27 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+import WeatherItem from './WeatherItem';
+import useWeathersById from '../hooks/useWeathersById';
 
 const List = styled.ul`
   padding-bottom: 100px;
 `;
-const Item = styled.li`
-  padding: 20px;
-  background-color: ${({ theme }) => theme.lightBlueColor};
-  box-shadow: ${({ theme }) => theme.bottomShadow};
-  &:not(:last-child) {
-    margin-bottom: 20px;
-  }
-`;
+
 const WeatherList: React.FunctionComponent = () => {
+  const { data, loading, error } = useWeathersById();
   return (
     <List>
-      <Item>서울, 최고온도, 최저온도</Item>
-      <Item>서울, 최고온도, 최저온도</Item>
-      <Item>서울, 최고온도, 최저온도</Item>
-      <Item>서울, 최고온도, 최저온도</Item>
-      <Item>서울, 최고온도, 최저온도</Item>
-      <Item>서울, 최고온도, 최저온도</Item>
-      <Item>서울, 최고온도, 최저온도</Item>
+      <WeatherItem />
+      <WeatherItem />
+      <WeatherItem />
+      <WeatherItem />
+      <WeatherItem />
+      <WeatherItem />
+      <WeatherItem />
     </List>
   );
 };
