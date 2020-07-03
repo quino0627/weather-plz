@@ -1,6 +1,7 @@
 import { ActionType, createReducer, createAsyncAction } from 'typesafe-actions';
 import { Observable } from 'rxjs';
 import { Action } from 'redux';
+import { weatherListType } from '../library/types/weatherListType';
 import { locationWeatherType } from '../library/types/locationWeatherType';
 import { getGeoWeather, getWeathersById } from '../library/api/weather';
 import createRequestEpic, {
@@ -8,7 +9,6 @@ import createRequestEpic, {
 } from './createRequestEpic';
 
 /** Action Types */
-
 // 위도 경도 값을 받아 날씨 값을 가져오는 액션
 const [
   FETCH_WEATHER_GEO,
@@ -34,8 +34,8 @@ export const fetchWeatherGeoAsync = createAsyncAction(
 )<
   { lat: number | null; lon: number | null },
   locationWeatherType,
-  unknown,
-  string
+  string,
+  unknown
 >();
 
 export const fetchWeathersByIdAsync = createAsyncAction(
@@ -43,12 +43,12 @@ export const fetchWeathersByIdAsync = createAsyncAction(
   FETCH_WEATHERS_BY_ID_FULFILLED,
   FETCH_WEATHERS_BY_ID_REJECTED,
   FETCH_WEATHERS_BY_ID_CANCELLED
-)<unknown, unknown, unknown, unknown>();
+)<number[], weatherListType, string, unknown>();
 
 /** Type */
 export type Weathers = {
   locationWeather: locationWeatherType | null;
-  cityWeathers: unknown | null;
+  cityWeathers: weatherListType | null;
   error: { locationWeather: string | null; cityWeathers: string | null };
 };
 type WeathersState = Weathers;

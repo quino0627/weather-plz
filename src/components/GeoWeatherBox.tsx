@@ -27,7 +27,7 @@ const GeoWeatherBox: React.FunctionComponent = (): React.ReactElement => {
       )}
       {geoLoading && <div>위치를 찾아오는 중...</div>}
       {loading && <div>날씨를 불러오는 중...</div>}
-      {!loading && data !== null && <WeatherContent data={data} />}
+      {!loading && data !== null && <WeatherContent weatherInfo={data} />}
       {(error || geoError) && <ErrorContent />}
     </GeoWeatherBoxWrapper>
   );

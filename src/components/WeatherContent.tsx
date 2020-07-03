@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 import React from 'react';
 import styled from 'styled-components';
+import { baseWeatherType } from 'library/types/baseWeatherType';
 import { locationWeatherType } from '../library/types/locationWeatherType';
 import DynamicIcon from './common/DynamicIcon';
 
@@ -80,11 +81,11 @@ const CityText = styled.div`
 `;
 
 interface IWeatherContentProps {
-  data: locationWeatherType;
+  weatherInfo: baseWeatherType;
 }
 
 const WeatherContent: React.FunctionComponent<IWeatherContentProps> = ({
-  data,
+  weatherInfo,
 }: IWeatherContentProps): React.ReactElement => {
   const {
     weather,
@@ -92,7 +93,7 @@ const WeatherContent: React.FunctionComponent<IWeatherContentProps> = ({
     main: { temp, humidity },
     wind: { speed },
     name,
-  } = data;
+  } = weatherInfo;
   const { description, icon } = weather[0];
   return (
     <WeatherContentWrapper icon={icon}>

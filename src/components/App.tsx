@@ -23,24 +23,22 @@ const Content = styled.div`
 
 const App: React.FunctionComponent = () => {
   // for theme setting
-
   const { theme, themeMount } = useTheme();
   if (!themeMount) return <div />;
+
   return (
-    <>
-      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-        <Wrapper>
-          <BrowserRouter>
-            <Header />
-            <Content>
-              <Routes />
-            </Content>
-            <Footer />
-          </BrowserRouter>
-        </Wrapper>
-      </ThemeProvider>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyles />
-    </>
+      <Wrapper>
+        <BrowserRouter>
+          <Header />
+          <Content>
+            <Routes />
+          </Content>
+          <Footer />
+        </BrowserRouter>
+      </Wrapper>
+    </ThemeProvider>
   );
 };
 

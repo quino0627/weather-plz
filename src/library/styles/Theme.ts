@@ -2,6 +2,7 @@ const commonThemes = {
   maxWidth: '935px',
   borderRadius: '4px',
   bottomShadow: ' 0 3px 5px rgba(57, 63, 72, 0.3)',
+  introText: 'font-size:30px; font-weight:400;',
 };
 
 export const lightTheme = {

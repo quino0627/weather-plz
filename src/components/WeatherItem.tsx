@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { baseWeatherType } from '../library/types/baseWeatherType';
+import WeatherContent from './WeatherContent';
 
 const WeatherItemWrapper = styled.div`
   padding: 30px 60px;
@@ -13,10 +15,18 @@ const WeatherItemWrapper = styled.div`
   }
 `;
 
-interface IWeatherItemProps {}
+interface IWeatherItemProps {
+  weather: baseWeatherType;
+}
 
-const WeatherItem: React.FunctionComponent<IWeatherItemProps> = props => {
-  return <WeatherItemWrapper>asdf</WeatherItemWrapper>;
+const WeatherItem: React.FunctionComponent<IWeatherItemProps> = ({
+  weather,
+}: IWeatherItemProps): ReactElement => {
+  return (
+    <WeatherItemWrapper>
+      <WeatherContent weatherInfo={weather} />
+    </WeatherItemWrapper>
+  );
 };
 
 export default WeatherItem;

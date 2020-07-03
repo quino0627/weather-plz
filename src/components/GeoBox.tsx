@@ -39,16 +39,14 @@ const IntroText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 400;
-  font-size: 30px;
-  color: ${({ theme }) => theme.fontColor};
+  ${({ theme }) => theme.introText}
 `;
 
 const GeoBox: React.FunctionComponent = (): React.ReactElement => {
   const { onFetchGeolocation } = useGeolocation();
   return (
     <GeoBoxWrapper>
-      <IntroText>Now</IntroText>
+      <IntroText>Current Place</IntroText>
       <GetGeoButton onClick={onFetchGeolocation}>
         <Location />
       </GetGeoButton>

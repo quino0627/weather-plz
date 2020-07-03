@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { Loading } from '../modules/loading';
 import { Weathers, fetchWeathersByIdAsync } from '../modules/weathers';
+import { weatherListType } from '../library/types/weatherListType';
 
 export default function useGeoWeather(): {
   error: string | null;
-  data: unknown;
+  data: weatherListType | null;
   loading: boolean;
 } {
   const dispatch = useDispatch();
@@ -16,12 +17,16 @@ export default function useGeoWeather(): {
       weatherLoading: loading['weathers/'],
     })
   );
-  useEffect(() => {
+  const constructData = useCallback(() => {
     const isExist = localStorage.getItem('weathers');
     const sampleData = [1835224, 1835327, 1838519, 1843561];
     if (!isExist) {
       dispatch(fetchWeathersByIdAsync.request(sampleData));
     }
+  }, []);
+
+  useEffect(() => {
+    constructData();
   }, []);
   return { error, data, loading: weatherLoading };
 }
