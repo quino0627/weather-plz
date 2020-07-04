@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Observable, race, of as of$, concat } from 'rxjs';
+import { Observable, of as of$, concat } from 'rxjs';
 import { mergeMap, takeUntil, catchError, map } from 'rxjs/operators';
 import { Action } from 'redux';
 import { ofType } from 'redux-observable';
 import { PayloadActionCreator } from 'typesafe-actions';
 import { startLoading, finishLoading } from './loading';
 
-export const createRequestActionTypes = (type: string): string[] => {
-  const FULFILLED = `${type}_SUCCESS`;
-  const REJECTED = `${type}_REJECTED`;
-  const CANCELLED = `${type}_CANCELED`;
-  return [type, FULFILLED, REJECTED, CANCELLED];
-};
+// ! for the limitation of typesafe-actions, template string is not available
+// export const createRequestActionTypes = (type: string): string[] => {
+//   const FULFILLED = `${type}_SUCCESS`;
+//   const REJECTED = `${type}_REJECTED`;
+//   const CANCELLED = `${type}_CANCELED`;
+//   return [type, FULFILLED, REJECTED, CANCELLED];
+// };
 
 export default (
   action$: Observable<Action>,
@@ -28,7 +29,6 @@ export default (
     mergeMap(action =>
       concat(
         of$(startLoading(action.type)),
-
         api(action).pipe(
           map(response => asyncAction.success(response)),
           takeUntil(action$.pipe(ofType(asyncAction.cancel))),

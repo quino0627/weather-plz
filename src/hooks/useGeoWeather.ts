@@ -1,6 +1,11 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Weathers, fetchWeatherGeoAsync } from '../modules/weathers';
+import { getWithExpire } from '../library/utils';
+import {
+  Weathers,
+  fetchWeatherGeoAsync,
+  getLocalStorage,
+} from '../modules/weathers';
 import { Geolocation, fetchLocationAsync } from '../modules/locations';
 import { Loading } from '../modules/loading';
 import { locationWeatherType } from '../library/types/locationWeatherType';
@@ -29,14 +34,22 @@ export default function useGeoWeather(): {
       weatherLoading: loading['weathers/FETCH_WEATHER_GEO'],
     })
   );
-  const onFetchWeather = async (e: SyntheticEvent) => {
+  const onFetchWeather = useCallback(async (e: SyntheticEvent) => {
     e.preventDefault();
     if (latitude !== null) {
       dispatch(fetchWeatherGeoAsync.request({ lat: latitude, lon: longitude }));
     } else {
       dispatch(fetchLocationAsync.request());
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const localData = getWithExpire(fetchWeatherGeoAsync.success.getType());
+    if (localData) {
+      dispatch(getLocalStorage({ locationWeather: localData }));
+    }
+  }, []);
+
   return {
     error,
     data,

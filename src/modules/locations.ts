@@ -3,18 +3,14 @@ import { ActionType, createReducer, createAsyncAction } from 'typesafe-actions';
 import { Observable, of, bindCallback, concat } from 'rxjs';
 import { Action } from 'redux';
 import { ofType, StateObservable } from 'redux-observable';
-import { mergeMap, catchError, map, tap, mapTo } from 'rxjs/operators';
-import { RootState } from 'modules';
-import { createRequestActionTypes } from './createRequestEpic';
+import { mergeMap, catchError, map } from 'rxjs/operators';
 import { fetchWeatherGeoAsync } from './weathers';
 import { startLoading, finishLoading } from './loading';
 
-const [
-  FETCH_LOCATION,
-  FETCH_LOCATION_FULFILLED,
-  FETCH_LOCATION_REJECTED,
-  FETCH_LOCATION_CANCELLED,
-] = createRequestActionTypes('locations/FETCH_LOCATION');
+const FETCH_LOCATION = 'locations/FETCH_LOCATION';
+const FETCH_LOCATION_FULFILLED = 'locations/FETCH_LOCATION_FULFILLED';
+const FETCH_LOCATION_REJECTED = 'locations/FETCH_LOCATION_REJECTED';
+const FETCH_LOCATION_CANCELLED = 'locations/FETCH_LOCATION_CANCELLED';
 
 export const fetchLocationAsync = createAsyncAction(
   FETCH_LOCATION,
@@ -47,9 +43,9 @@ const getCurrentPositionObservable = bindCallback(
   }
 );
 const getCurrentPosition$ = getCurrentPositionObservable({
-  enableHighAccuracy: false,
-  timeout: 5000,
-  maximumAge: 0,
+  enableHighAccuracy: true,
+  // timeout: 10000,
+  maximumAge: 600000,
 });
 
 export const fetchLocationEpic = (
@@ -61,7 +57,7 @@ export const fetchLocationEpic = (
       concat(
         of(startLoading(action.type)),
         getCurrentPosition$.pipe(
-          map(position =>
+          map((position: any) =>
             fetchLocationAsync.success({
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,

@@ -2,10 +2,12 @@
 import { combineEpics } from 'redux-observable';
 import { combineReducers } from 'redux';
 import styles from './styles';
-import weathers, {
+import weathers from './weathers';
+import {
   fetchWeatherGeoEpic,
   fetchWeathersByIdEpic,
-} from './weathers';
+  InsertStorageAfterSuccessEpic,
+} from './epics';
 import loading from './loading';
 import locations, {
   fetchLocationEpic,
@@ -16,7 +18,8 @@ export const rootEpic = combineEpics(
   fetchWeatherGeoEpic,
   fetchLocationEpic,
   fetchWeatherAfterLocationEpic,
-  fetchWeathersByIdEpic
+  fetchWeathersByIdEpic,
+  InsertStorageAfterSuccessEpic
 );
 export const rootReducer = combineReducers({
   styles,

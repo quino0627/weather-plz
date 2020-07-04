@@ -5,7 +5,8 @@ import useWeathersById from '../hooks/useWeathersById';
 
 const IntroText = styled.div`
   ${({ theme }) => theme.introText}
-  padding-bottom:10px;
+  padding-bottom:16px;
+  padding-top: 10px;
 `;
 
 const List = styled.ul`

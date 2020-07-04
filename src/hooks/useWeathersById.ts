@@ -1,8 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useCallback } from 'react';
 import { Loading } from '../modules/loading';
-import { Weathers, fetchWeathersByIdAsync } from '../modules/weathers';
+import {
+  Weathers,
+  fetchWeathersByIdAsync,
+  getLocalStorage,
+} from '../modules/weathers';
 import { weatherListType } from '../library/types/weatherListType';
+import { getWithExpire } from '../library/utils';
 
 export default function useGeoWeather(): {
   error: string | null;
@@ -18,15 +23,17 @@ export default function useGeoWeather(): {
     })
   );
   const constructData = useCallback(() => {
-    const isExist = localStorage.getItem('weathers');
     const sampleData = [1835224, 1835327, 1838519, 1843561];
-    if (!isExist) {
-      dispatch(fetchWeathersByIdAsync.request(sampleData));
-    }
+    dispatch(fetchWeathersByIdAsync.request(sampleData));
   }, []);
 
   useEffect(() => {
-    constructData();
+    const localData = getWithExpire(fetchWeathersByIdAsync.success.getType());
+    if (localData) {
+      dispatch(getLocalStorage({ cityWeathers: localData }));
+    } else {
+      constructData();
+    }
   }, []);
   return { error, data, loading: weatherLoading };
 }

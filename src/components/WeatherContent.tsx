@@ -71,10 +71,10 @@ const CityText = styled.div`
   &::after {
     content: '';
     position: absolute;
-    bottom: -12px;
-    width: 80%;
-    left: calc(50% - 40%);
-    height: 6px;
+    bottom: -14px;
+    width: 90%;
+    left: calc(50% - 45%);
+    height: 5px;
     background-color: ${({ theme }) => theme.fontColor};
     border-radius: 10px;
   }
