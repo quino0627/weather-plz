@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
     }
     body {
         font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        min-width:950px;
     }
     a {
         text-decoration:none;

@@ -75,7 +75,11 @@ const config = {
     ],
   },
   plugins: [
-    new HTMLWebpackPlugin({ template: './build/index.html' }),
+    new HTMLWebpackPlugin({
+      template: path.join(__dirname, '/src/index.html'),
+      inject: false,
+      filename: path.join(__dirname, '/build/index.html'),
+    }),
     new webpack.HotModuleReplacementPlugin(),
   ],
 
@@ -101,7 +105,6 @@ module.exports = (env, argument) => {
     prev[`process.env.${next}`] = JSON.stringify(fileEnv[next]);
     return prev;
   }, {});
-
 
   if (argument.mode === 'development') {
     config.devtool = 'cheap-module-eval-source-map';
