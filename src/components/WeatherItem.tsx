@@ -1,36 +1,55 @@
 /* eslint-disable no-shadow */
-import React, { ReactElement, useState, useCallback, useEffect } from 'react';
+import React, {
+  ReactElement,
+  useState,
+  useCallback,
+  useEffect,
+  useMemo,
+} from 'react';
 import styled from 'styled-components';
 import { baseWeatherType } from '../library/types/baseWeatherType';
 import WeatherContent from './WeatherContent';
 
-const WeatherItemWrapper = styled.div`
+const WeatherItemWrapper = styled.div``;
+
+const Rect = styled.div<IRectProps>`
+  position: absolute;
+  top: ${({ top }) => top}px;
+  width: 775px;
   padding: 30px 60px;
   border-radius: 16px;
   margin-bottom: 30px;
 
+  user-select: none;
   background: ${({ theme }) => theme.boxGradient};
   box-shadow: ${({ theme }) => theme.boxShadow};
   &:not(:last-child) {
     margin-bottom: 20px;
   }
 `;
-
+interface IRectProps {
+  isDragging: boolean;
+  top: number;
+}
 interface IWeatherItemProps {
+  isDragging: boolean;
   className: string;
   weather: baseWeatherType;
   id: number;
   onDrag: ({ translation, id }: any) => void;
   onDragEnd: () => void;
+  top: number;
 }
 const POSITION = { x: 0, y: 0 };
 
 const WeatherItem: React.FunctionComponent<IWeatherItemProps> = ({
+  isDragging,
   weather,
   className,
   onDrag,
   onDragEnd,
   id,
+  top,
 }: IWeatherItemProps): ReactElement => {
   const [state, setState] = useState({
     isDragging: false,
@@ -38,15 +57,6 @@ const WeatherItem: React.FunctionComponent<IWeatherItemProps> = ({
     translation: POSITION,
   });
 
-  useEffect(() => {
-    // console.log(state);
-  }, [state.isDragging, state.origin, state.translation]);
-
-  // mousedown event로부터 clientX, clientY값을 받는다.
-  // isDragging:true로 state값을 설정한다.
-  // origin값을 설정한다.
-  // isDragging이 true이면
-  // window eventlistener에 mousemove와 mouseup값을 등록한다.
   const handleMouseDown = useCallback(({ clientX, clientY }) => {
     setState(state => ({
       ...state,
@@ -91,11 +101,28 @@ const WeatherItem: React.FunctionComponent<IWeatherItemProps> = ({
     }
   }, [state.isDragging, handleMouseMove, handleMouseUp]);
 
+  const styles = useMemo(
+    () =>
+      ({
+        cursor: state.isDragging ? '-webkit-grabbing' : '-webkit-grab',
+        transform: `translate(${state.translation.x}px, ${state.translation.y}px)`,
+        zIndex: state.isDragging ? 2 : 1,
+        position: state.isDragging ? 'absolute' : 'relative',
+      } as React.CSSProperties),
+    [state.isDragging, state.translation]
+  );
+
   return (
-    <WeatherItemWrapper className={className} onMouseDown={handleMouseDown}>
-      <WeatherContent weatherInfo={weather} />
+    <WeatherItemWrapper
+      style={styles}
+      className={className}
+      onMouseDown={handleMouseDown}
+    >
+      <Rect isDragging={isDragging} top={top}>
+        <WeatherContent weatherInfo={weather} />
+      </Rect>
     </WeatherItemWrapper>
   );
 };
 
-export default WeatherItem;
+export default React.memo(WeatherItem);

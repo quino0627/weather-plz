@@ -1,5 +1,6 @@
 import { SyntheticEvent, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getType } from 'typesafe-actions';
 import { getWithExpire } from '../library/utils';
 import {
   Weathers,
@@ -44,7 +45,7 @@ export default function useGeoWeather(): {
   }, []);
 
   useEffect(() => {
-    const localData = getWithExpire(fetchWeatherGeoAsync.success.getType());
+    const localData = getWithExpire(getType(fetchWeatherGeoAsync.success));
     if (localData) {
       dispatch(getLocalStorage({ locationWeather: localData }));
     }

@@ -19,10 +19,12 @@ export const fetchWeathersByIdEpic = (
 export const InsertStorageAfterSuccessEpic = (
   action$: Observable<Action>
 ): Observable<Action> => {
-  return Observable.create(_observer => {
+  return Observable.create(() => {
     const subscription = action$
       .pipe(
-        ofType(fetchWeatherGeoAsync.success, fetchWeathersByIdAsync.success)
+        ofType(
+          ...[fetchWeatherGeoAsync.success, fetchWeathersByIdAsync.success]
+        )
       )
       .subscribe(action => {
         setWithExpire(action.type, action.payload, 600000);

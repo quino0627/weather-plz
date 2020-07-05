@@ -118,4 +118,4 @@ const WeatherContent: React.FunctionComponent<IWeatherContentProps> = ({
   );
 };
 
-export default WeatherContent;
+export default React.memo(WeatherContent);
