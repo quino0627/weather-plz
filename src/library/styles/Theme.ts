@@ -7,7 +7,7 @@ const commonThemes = {
 
 export const lightTheme = {
   ...commonThemes,
-  bgColor: '#d6f0f1',
+  bgColor: '#ecf0f1',
   fontColor: '#363537',
   impactColor: '#999',
   darkGrayColor: '#999',
@@ -15,12 +15,12 @@ export const lightTheme = {
   lightBlueColor: '#4bcffa',
   bottomShadow: ' 0 3px 5px rgba(57, 63, 72, 0.3)',
   dropShadow: '5px 5px 2px rgba(57, 63, 72, 0.3)',
-  toggleGradient: 'linear-gradient(145deg, #c1d8d9, #e5ffff);',
+  toggleGradient: 'linear-gradient(145deg, #d4d8d9, #fdffff);',
   toggleShadow: '20px 20px 60px #8fa1a1, -20px -20px 60px #f6ffff;',
   toggleDropShadow: '5px 5px 2px rgba(57, 63, 72, 0.3)',
-  boxGradient: 'linear-gradient(145deg, #c1d8d9, #e5ffff);',
+  boxGradient: 'linear-gradient(145deg, #d4d8d9, #fdffff);',
   boxShadow: ' 20px 20px 60px #9c9e9f, -20px -20px 60px #ffffff;',
-  headerGradient: 'linear-gradient(145deg, #fdffff, #d6f0f1);',
+  headerGradient: 'linear-gradient(145deg, #fdffff, #d4d8d9);',
   headerShadow: '9px 9px 18px #566060, -9px -9px 18px #ffffff;',
   gradient: 'linear-gradient(#0fbcf9, #79D7ED)',
 };
