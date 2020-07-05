@@ -4,16 +4,12 @@ import dotenv from 'dotenv';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './components/App';
 import { rootReducer, rootEpic } from './modules';
 
 // configure store
 const epicMiddleware = createEpicMiddleware();
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(epicMiddleware))
-);
+const store = createStore(rootReducer, applyMiddleware(epicMiddleware));
 epicMiddleware.run(rootEpic);
 // end of configure store
 

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const webpack = require('webpack');
 const path = require('path');
-const fs = require('fs');
 const dotenv = require('dotenv');
 const NotifierPlugin = require('webpack-notifier');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -103,7 +102,8 @@ module.exports = (env, argument) => {
     return prev;
   }, {});
 
-  if (argument.mode === 'dev') {
+
+  if (argument.mode === 'development') {
     config.devtool = 'cheap-module-eval-source-map';
     config.plugins.push(
       new NotifierPlugin({
@@ -112,6 +112,7 @@ module.exports = (env, argument) => {
       })
     );
   }
+
   config.plugins.push(new webpack.DefinePlugin(envKeys));
 
   return config;

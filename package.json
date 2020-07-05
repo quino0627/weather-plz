@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:local": "webpack-dev-server --config=webpack.config.js --mode=development --open --hot",
-    "build:production": "rm -rf build && NODE_ENV=prod webpack --config=webpack.config.js --mode=production",
-    "build:develop": "rm -rf build && NODE_ENV=develop webpack --config=webpack.config.js --mode=development"
+    "build:production": "NODE_ENV=prod webpack --config=webpack.config.js --mode=production",
+    "build:develop": "NODE_ENV=develop webpack --config=webpack.config.js --mode=development"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
     "@svgr/webpack": "^5.4.0",
+    "@types/lodash": "^4.14.157",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
@@ -48,10 +49,12 @@
     "html-webpack-plugin": "^4.3.0",
     "node-sass": "^4.14.1",
     "prettier": "^2.0.5",
+    "redux-devtools-extension": "^2.13.8",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^3.0.1",
     "typescript": "^3.9.3",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
@@ -59,18 +62,14 @@
     "webpack-notifier": "^1.8.0"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.157",
     "dotenv": "^8.2.0",
-    "immer": "^7.0.5",
     "lodash": "^4.17.15",
     "query-string": "^6.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-geolocated": "^3.0.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.8",
     "redux-observable": "^1.2.0",
     "rxjs": "^6.5.5",
     "styled-components": "^5.1.1",
