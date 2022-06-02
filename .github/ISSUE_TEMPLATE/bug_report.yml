@@ -1,0 +1,47 @@
+name: Bug Report
+description: 버그 리포트
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        <!-- 작성 이전에 동일 이슈가 존재하는지 파악해주세요. -->
+        *제목만으로 이슈를 간단하게 이해할 수 있도록 작성하겠습니다.*
+        *이슈만 보고 버그를 충분히 이해하고 Reproduce할 수 있도록 충실히 작성하겠습니다.*
+  - type: textarea
+    id: details
+    attributes:
+      label: 문제점, 기대하는 동작
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 재현 스텝
+      description: |
+        아래 단계만 보고도 버그를 재현할 수 있도록 충실히 작성하세요.
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: checkboxes
+    id: environments
+    attributes:
+      label: 환경
+      description: 해당하는 환경을 체크해주세요.
+      options:
+        - label: MacOS
+        - label: Windows
+  - type: textarea
+    id: reference
+    attributes:
+      label: 레퍼런스
+      description: |
+        참고할 만한 문서가 있다면 첨부해주세요.
+      value: |
+        - Notion:
+        - TeamChat:
+        - Figma:
+        - Other Issues:
