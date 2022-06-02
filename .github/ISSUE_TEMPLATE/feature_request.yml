@@ -1,0 +1,10 @@
+name: "Feature"
+description: "새로운 기능 추가 및 개선"
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        <!-- 작성 이전에 동일 이슈가 존재하는지 파악해주세요. -->
+        이슈만 보고 기능을 충분히 이해할 수 있도록 충실히 작성해야 합니다.
+        
